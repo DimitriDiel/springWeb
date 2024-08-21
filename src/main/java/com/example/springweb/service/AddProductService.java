@@ -11,9 +11,9 @@ import org.springframework.stereotype.Service;
 public class AddProductService {
     private final ProductRepository productRepository;
 
-    public Integer addProduct(RequestDto request) {
+    public Product addProduct(RequestDto request) {
         Product newProduct = new Product(0, request.getName(), request.getDescription(), request.getCategory() , request.getPrice(), request.getQuantity());
-        return productRepository.addProduct(newProduct);
+        return productRepository.save(newProduct);
     }
 
 }

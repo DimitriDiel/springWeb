@@ -10,8 +10,8 @@ public class DeleteService {
 
     private final ProductRepository productRepository;
 
-    public boolean deleteProduct(Integer id) {
-        return productRepository.deleteProductById(id);
+    public void deleteProduct(Long id) {
+        productRepository.deleteById(id);
 
     }
 

@@ -17,7 +17,7 @@ public class FindService {
     public List<Product> findAll() {
         return productRepository.getProducts();
     }
-    public Optional<Product> findById(Integer id) {
+    public Optional<Product> findById(Long id) {
         return productRepository.getProductById(id);
     }
     public List<Product> findByName(String name) {

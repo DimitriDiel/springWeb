@@ -1,0 +1,262 @@
+Работа с товарами:
+
+- передать все товары
+Request: -
+Response:
+[
+    {
+        "id": 1,
+        "name": "iPhone 15",
+        "description": "iPhone 15 .........",
+        "category": {
+                        "id": 1,
+                        "categoryName":"phones"
+                    },
+        "supplier": {
+                         "id": 1,
+                         "name":"Apple",
+                         "country":"China"
+                         },
+        "productPrice": 1500,
+        "productQuantity": 24
+    },
+    {}
+]
+
+- передать список категорий
+Request: -
+Response:
+[
+{
+"id": 1,
+"categoryName":"phones"
+},
+{}
+]
+
+- передать товары по категории
+Request: Integer categoryId
+Response:
+[
+    {
+            "id": 1,
+            "name": "iPhone 15",
+            "description": "iPhone 15 .........",
+            "category": {
+                            "id": 1,
+                            "categoryName":"phones"
+                        },
+            "supplier": {
+                             "id": 1,
+                             "name":"Apple",
+                             "country":"China"
+                             },
+            "productPrice": 1500,
+            "productQuantity": 24
+        },
+        {}
+]
+
+- передать товары по категории и диапазон цен
+Request: Integer categoryId, Double minPrice, Double maxPrice
+Response:
+[
+    {
+            "id": 1,
+            "name": "iPhone 15",
+            "description": "iPhone 15 .........",
+            "category": {
+                            "id": 1,
+                            "categoryName":"phones"
+                        },
+            "supplier": {
+                             "id": 1,
+                             "name":"Apple",
+                             "country":"China"
+                             },
+            "productPrice": 1500,
+            "productQuantity": 24
+        },
+        {}
+]
+
+- передать товары по поставщикам
+Request: Integer supplierId
+Response:
+[
+    {
+            "id": 1,
+            "name": "iPhone 15",
+            "description": "iPhone 15 .........",
+            "category": {
+                            "id": 1,
+                            "categoryName":"phones"
+                        },
+            "supplier": {
+                             "id": 1,
+                             "name":"Apple",
+                             "country":"China"
+                             },
+            "productPrice": 1500,
+            "productQuantity": 24
+        },
+        {}
+]
+
+- передать товары по категории и поставщику
+Request: Integer categoryId, Integer supplierId
+Response:
+[
+    {
+            "id": 1,
+            "name": "iPhone 15",
+            "description": "iPhone 15 .........",
+            "category": {
+                            "id": 1,
+                            "categoryName":"phones"
+                        },
+            "supplier": {
+                             "id": 1,
+                             "name":"Apple",
+                             "country":"China"
+                             },
+            "productPrice": 1500,
+            "productQuantity": 24
+        },
+        {}
+]
+
+- передать данные о количестве конкретного товара
+Request: Integer productId
+Response:
+[
+    {
+            "id": 1,
+            "name": "iPhone 15",
+            "productQuantity": 24
+        },
+        {}
+]
+
+ - показать конкретный товар по id
+ Request: Integer productId
+ Response:
+ [
+     {
+             "id": 1,
+             "name": "iPhone 15",
+             "description": "iPhone 15 .........",
+             "category": {
+                             "id": 1,
+                             "categoryName":"phones"
+                         },
+             "supplier": {
+                              "id": 1,
+                              "name":"Apple",
+                              "country":"China"
+                              },
+             "productPrice": 1500,
+             "productQuantity": 24
+         },
+         {}
+ ]
+
+ Работа с контрагентами:
+
+- добавление нового поставщика
+Request: String supplierName
+ Response:
+ [
+ {
+ "id": 1,
+ "supplierName":"Apple"
+ },
+ {}
+ ]
+
+- показать список поставщиков
+ Request: -
+ Response:
+ [
+ {
+ "id": 1,
+ "supplierName":"Apple"
+ },
+ {}
+ ]
+
+ - добавление нового покупателя
+ Request: String customerName
+  Response:
+  [
+  {
+  "id": 1,
+  "customerName":"Apple Store"
+  },
+  {}
+  ]
+
+- показать список покупателей
+  Request:
+    Response:
+    [
+    {
+    "id": 1,
+    "customerName":"Apple Store"
+    },
+    {}
+    ]
+
+Работа с поставками и отгрузками товара:
+
+  - создание прихода
+  Request: String supplierName, String productName, String description, String category, Double productPrice, Integer productQuantity
+      Response:
+      [
+      {
+      "id": 1,
+      "invoice": 1,
+      "invoiceDate": 05.05.2024
+      "supplierName":"Apple"
+      },
+      {}
+      ]
+
+  - показать список приходов
+  Request:
+      Response:
+      [
+      {
+      "id": 1,
+      "invoice": 1,
+      "invoiceDate": 05.05.2024
+      "supplierName":"Apple"
+      },
+      {}
+      ]
+
+  - создание отгрузки
+  Request: String customerName, String productName, Double productPrice, Integer productQuantity
+        Response:
+        [
+        {
+        "id": 1,
+        "invoice": 1,
+        "invoiceDate": 05.05.2024
+        "customerName":"Apple Store"
+        },
+        {}
+        ]
+
+  - показать список отгрузок
+  Request:
+      Response:
+      [
+      {
+      "id": 1,
+      "invoice": 1,
+      "invoiceDate": 10.05.2024
+      "customerName":"Apple Store"
+      },
+      {}
+      ]

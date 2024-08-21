@@ -21,7 +21,7 @@ public class ProductController {
     private final FindService findService;
 
     @PostMapping("/add-new")
-    public Integer addNew(@RequestBody RequestDto requestDto) {
+    public Product addNew(@RequestBody RequestDto requestDto) {
         return addProductService.addProduct(requestDto);
     }
     @GetMapping
@@ -30,7 +30,7 @@ public class ProductController {
     }
 
     @GetMapping("/{product-id}")
-    public Optional<Product> findById(@PathVariable(name = "product-id") Integer id) {
+    public Optional<Product> findById(@PathVariable(name = "product-id") Long id) {
         return findService.findById(id);
     }
 
@@ -44,7 +44,7 @@ public class ProductController {
         return findService.findByCategory(categoryName);
     }
     @DeleteMapping("/{id}")
-    public boolean deleteById(@PathVariable Integer id) {
-        return deleteService.deleteProduct(id);
+    public void deleteById(@PathVariable Long id) {
+        deleteService.deleteProduct(id);
     }
 }
