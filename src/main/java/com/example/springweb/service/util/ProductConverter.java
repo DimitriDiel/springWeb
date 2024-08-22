@@ -17,7 +17,6 @@ public class ProductConverter {
         product.setCategory(productDto.getCategory());
         product.setSupplier(productDto.getSupplier());
         product.setQuantity(productDto.getQuantity());
-        product.setInvoice(productDto.getInvoice());
         return product;
     }
 }

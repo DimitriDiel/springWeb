@@ -19,11 +19,11 @@ public class ProductService {
     private final ProductConverter productConverter;
 
     public Product addProduct(ProductDto productDto) {
-        return productConverter.convertFromDto(productDto);
+        return productRepository.save(productConverter.convertFromDto(productDto));
     }
 
     public List<Product> findAll() {
-        return productRepository.getProducts();
+        return productRepository.findAll();
     }
     public Optional<Product> findById(Long id) {
         return productRepository.getProductById(id);

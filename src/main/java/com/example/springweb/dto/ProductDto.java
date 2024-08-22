@@ -13,7 +13,6 @@ public class ProductDto {
     private String name;
     private String description;
     private String category;
-    private Invoice invoice;
     private Supplier supplier;
     private double price;
     private int quantity;

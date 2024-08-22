@@ -19,10 +19,6 @@ public class Product {
     private String category;
 
     @ManyToOne
-    @JoinColumn(name = "invoce_id")
-    private Invoice invoice;
-
-    @ManyToOne
     @JoinColumn(name = "supplier_id")
     private Supplier supplier;
     private double price;

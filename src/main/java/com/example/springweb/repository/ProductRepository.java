@@ -10,7 +10,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
 //    Integer addProduct(Product product);
 
-    List<Product> getProducts();
+//    List<Product> getProducts();
 
     Optional<Product> getProductById(Long id);
 

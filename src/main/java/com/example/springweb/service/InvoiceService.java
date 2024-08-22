@@ -4,6 +4,7 @@ import com.example.springweb.dto.InvoiceRequestDto;
 import com.example.springweb.dto.InvoiceResponseDto;
 import com.example.springweb.dto.ProductDto;
 import com.example.springweb.entity.Invoice;
+import com.example.springweb.entity.Product;
 import com.example.springweb.repository.InvoiceRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -25,18 +26,22 @@ public class InvoiceService {
         productDto.setCategory(invoiceRequestDto.getProductCategory());
         productDto.setPrice(invoiceRequestDto.getProductPrice());
         productDto.setQuantity(invoiceRequestDto.getProductQuantity());
+        productDto.setDescription(invoiceRequestDto.getProductDescription());
 
         invoice.setPartnerEmail(invoiceRequestDto.getPartnerEmail());
         invoice.setDate(LocalDateTime.now());
         if(supplierService.findByEmail(invoiceRequestDto.getPartnerEmail()).isPresent()) {
             invoice.setType("Приход");
             productDto.setSupplier(supplierService.findByEmail(invoiceRequestDto.getPartnerEmail()).get());
-            productDto.setInvoice(invoice);
-            invoice.setProduct(productService.addProduct(productDto));
+            Product productForAdd = productService.addProduct(productDto);
+            invoice.setProduct(productForAdd);
+            invoiceRepo.save(invoice);
+
         } else if (clientService.findByEmail(invoiceRequestDto.getPartnerEmail()).isPresent()) {
             invoice.setType("Отгрузка");
                 if (productService.findByName(invoiceRequestDto.getProductName()).isPresent()) {
-                invoice.setProduct(productService.findByName(invoiceRequestDto.getProductName()).get());
+                 invoice.setProduct(productService.findByName(invoiceRequestDto.getProductName()).get());
+                 invoiceRepo.save(invoice);
                 } else {
                     throw new RuntimeException("Товара с таким названием нет на складе");
                 }
@@ -44,8 +49,6 @@ public class InvoiceService {
         } else {
             throw new RuntimeException("Контрагент с email: " + invoiceRequestDto.getPartnerEmail() + " в базе не найден, пожалуйста заведите нового контрагента");
         }
-
-        invoiceRepo.save(invoice);
 
         InvoiceResponseDto invoiceResponseDto = new InvoiceResponseDto();
         invoiceResponseDto.setId(invoice.getId());
