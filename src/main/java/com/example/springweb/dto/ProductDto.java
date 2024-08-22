@@ -1,29 +1,19 @@
-package com.example.springweb.entity;
+package com.example.springweb.dto;
 
-import jakarta.persistence.*;
+import com.example.springweb.entity.Invoice;
+import com.example.springweb.entity.Supplier;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Product {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+public class ProductDto {
     private String name;
     private String description;
     private String category;
-
-    @ManyToOne
-    @JoinColumn(name = "invoce_id")
     private Invoice invoice;
-
-    @ManyToOne
-    @JoinColumn(name = "supplier_id")
     private Supplier supplier;
     private double price;
     private int quantity;

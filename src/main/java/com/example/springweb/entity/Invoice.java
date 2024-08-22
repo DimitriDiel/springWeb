@@ -5,26 +5,22 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Product {
-
+public class Invoice {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private String name;
-    private String description;
-    private String category;
+    private String type;
+    private String partnerEmail;
 
     @ManyToOne
-    @JoinColumn(name = "invoce_id")
-    private Invoice invoice;
-
-    @ManyToOne
-    @JoinColumn(name = "supplier_id")
-    private Supplier supplier;
-    private double price;
-    private int quantity;
+    @JoinColumn(name = "product_id")
+    private Product product;
+    private LocalDateTime date;
 }
