@@ -16,6 +16,11 @@ public class ProductController {
 
     private final ProductService productService;
 
+    @GetMapping
+    public List<Product> getAllProducts() {
+        return productService.findAll();
+    }
+
     @GetMapping("/{product-id}")
     public Optional<Product> findById(@PathVariable(name = "product-id") Long id) {
         return productService.findById(id);
