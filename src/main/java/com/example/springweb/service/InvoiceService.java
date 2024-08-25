@@ -6,6 +6,7 @@ import com.example.springweb.dto.ProductDto;
 import com.example.springweb.entity.Invoice;
 import com.example.springweb.entity.Product;
 import com.example.springweb.repository.InvoiceRepo;
+import com.example.springweb.service.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
@@ -43,11 +44,11 @@ public class InvoiceService {
                  invoice.setProduct(productService.findByName(invoiceRequestDto.getProductName()).get());
                  invoiceRepo.save(invoice);
                 } else {
-                    throw new RuntimeException("Товара с таким названием нет на складе");
+                    throw new NotFoundException("Товара с таким названием нет на складе");
                 }
 
         } else {
-            throw new RuntimeException("Контрагент с email: " + invoiceRequestDto.getPartnerEmail() + " в базе не найден, пожалуйста заведите нового контрагента");
+            throw new NotFoundException("Контрагент с email: " + invoiceRequestDto.getPartnerEmail() + " в базе не найден, пожалуйста заведите нового контрагента");
         }
 
         InvoiceResponseDto invoiceResponseDto = new InvoiceResponseDto();
@@ -57,5 +58,6 @@ public class InvoiceService {
 
         return invoiceResponseDto;
     }
+
 
 }
