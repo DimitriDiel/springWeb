@@ -1,6 +1,8 @@
 package com.example.springweb.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,6 +19,9 @@ public class Invoice {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String type;
+
+    @NotBlank
+    @Email
     private String partnerEmail;
 
     @ManyToOne

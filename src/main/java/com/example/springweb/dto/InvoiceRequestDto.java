@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class InvoiceRequestDto {
+
     private String partnerEmail;
     private String productName;
     private String productDescription;

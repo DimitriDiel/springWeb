@@ -7,9 +7,14 @@ import com.example.springweb.entity.Invoice;
 import com.example.springweb.entity.Product;
 import com.example.springweb.repository.InvoiceRepo;
 import com.example.springweb.service.exception.NotFoundException;
+import com.example.springweb.service.util.DtoConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -19,15 +24,12 @@ public class InvoiceService {
     private final ProductService productService;
     private final SupplierService supplierService;
     private final ClientService clientService;
+    private final DtoConverter dtoConverter;
 
+    @Transactional
     public InvoiceResponseDto createInvoice(InvoiceRequestDto invoiceRequestDto) {
         Invoice invoice = new Invoice();
-        ProductDto productDto = new ProductDto();
-        productDto.setName(invoiceRequestDto.getProductName());
-        productDto.setCategory(invoiceRequestDto.getProductCategory());
-        productDto.setPrice(invoiceRequestDto.getProductPrice());
-        productDto.setQuantity(invoiceRequestDto.getProductQuantity());
-        productDto.setDescription(invoiceRequestDto.getProductDescription());
+        ProductDto productDto = dtoConverter.convertFromInvoiceDtoToProductDto(invoiceRequestDto);
 
         invoice.setPartnerEmail(invoiceRequestDto.getPartnerEmail());
         invoice.setDate(LocalDateTime.now());
@@ -57,6 +59,19 @@ public class InvoiceService {
         invoiceResponseDto.setInvoiceType(invoice.getType());
 
         return invoiceResponseDto;
+    }
+
+    public List<InvoiceResponseDto> getAllInvoices() {
+        List<Invoice> invoices = invoiceRepo.findAll();
+        List<InvoiceResponseDto> invoiceResponseDtos = new ArrayList<>();
+        for (Invoice invoice : invoices) {
+            InvoiceResponseDto invoiceResponseDto = new InvoiceResponseDto();
+            invoiceResponseDto.setId(invoice.getId());
+            invoiceResponseDto.setDate(invoice.getDate());
+            invoiceResponseDto.setInvoiceType(invoice.getType());
+            invoiceResponseDtos.add(invoiceResponseDto);
+        }
+        return invoiceResponseDtos;
     }
 
 

@@ -7,6 +7,7 @@ import com.example.springweb.service.util.SupplierConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -20,7 +21,19 @@ public class SupplierService {
         return supplierRepo.save(supplierConverter.convertFromDto(supplierDto));
     }
 
+    public List<Supplier> findAll() {
+        return supplierRepo.findAll();
+    }
+
+    public Optional<Supplier> findById(Long id) {
+        return supplierRepo.findById(id);
+    }
+
     public Optional<Supplier> findByEmail(String email) {
        return supplierRepo.findByEmail(email);
+    }
+
+    public void deleteById(Long id) {
+        supplierRepo.deleteById(id);
     }
 }
