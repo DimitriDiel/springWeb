@@ -4,6 +4,8 @@ import com.example.springweb.dto.SupplierDto;
 import com.example.springweb.entity.Supplier;
 import com.example.springweb.service.SupplierService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,20 +19,20 @@ public class SupplierController {
     private final SupplierService supplierService;
 
     @PostMapping
-    public Supplier addSupplier(@RequestBody SupplierDto supplierDto) {
-       return supplierService.save(supplierDto);
+    public ResponseEntity<Supplier> addSupplier(@RequestBody SupplierDto supplierDto) {
+       return new ResponseEntity<>(supplierService.save(supplierDto), HttpStatus.CREATED);
     }
     @GetMapping
-    public List<Supplier> getAllSuppliers() {
-        return supplierService.findAll();
+    public ResponseEntity<List<Supplier>> getAllSuppliers() {
+        return ResponseEntity.ok(supplierService.findAll());
     }
     @GetMapping("/{id}")
-    public Optional<Supplier> getSupplierById(@PathVariable Long id) {
-        return supplierService.findById(id);
+    public ResponseEntity<Optional<Supplier>> getSupplierById(@PathVariable Long id) {
+        return ResponseEntity.ok(supplierService.findById(id));
     }
     @GetMapping("/find-by-email")
-    public Optional<Supplier> findByEmail(@RequestParam(value = "email") String email) {
-        return supplierService.findByEmail(email);
+    public ResponseEntity<Optional<Supplier>> findByEmail(@RequestParam(value = "email") String email) {
+        return ResponseEntity.ok(supplierService.findByEmail(email));
     }
 
     @DeleteMapping("/{id}")

@@ -3,6 +3,7 @@ package com.example.springweb.controller;
 import com.example.springweb.entity.Product;
 import com.example.springweb.service.ProductService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,8 +18,8 @@ public class ProductController {
     private final ProductService productService;
 
     @GetMapping
-    public List<Product> getAllProducts() {
-        return productService.findAll();
+    public ResponseEntity<List<Product>> getAllProducts() {
+        return ResponseEntity.ok(productService.findAll());
     }
 
     @GetMapping("/{product-id}")
@@ -32,8 +33,8 @@ public class ProductController {
     }
 
     @GetMapping("/find-by-category")
-    public List<Product> findByCategory(@RequestParam(value = "categoryName") String categoryName) {
-        return productService.findByCategory(categoryName);
+    public ResponseEntity<List<Product>> findByCategory(@RequestParam(value = "categoryName") String categoryName) {
+        return ResponseEntity.ok(productService.findByCategory(categoryName));
     }
     @DeleteMapping("/{id}")
     public void deleteById(@PathVariable Long id) {

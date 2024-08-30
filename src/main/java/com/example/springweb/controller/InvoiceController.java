@@ -4,6 +4,8 @@ import com.example.springweb.dto.InvoiceRequestDto;
 import com.example.springweb.dto.InvoiceResponseDto;
 import com.example.springweb.service.InvoiceService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,13 +18,13 @@ public class InvoiceController {
     private final InvoiceService invoiceService;
 
     @PostMapping
-    public InvoiceResponseDto createInvoice(@RequestBody InvoiceRequestDto invoiceRequestDto) {
-        return invoiceService.createInvoice(invoiceRequestDto);
+    public ResponseEntity<InvoiceResponseDto> createInvoice(@RequestBody InvoiceRequestDto invoiceRequestDto) {
+        return new ResponseEntity<>(invoiceService.createInvoice(invoiceRequestDto), HttpStatus.CREATED);
 
     }
     @GetMapping
-    public List<InvoiceResponseDto> getInvoices() {
-        return invoiceService.getAllInvoices();
+    public ResponseEntity<List<InvoiceResponseDto>> getInvoices() {
+        return ResponseEntity.ok(invoiceService.getAllInvoices());
     }
 
 }
