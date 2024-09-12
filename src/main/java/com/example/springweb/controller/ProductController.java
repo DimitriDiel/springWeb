@@ -23,13 +23,13 @@ public class ProductController {
     }
 
     @GetMapping("/{product-id}")
-    public Optional<Product> findById(@PathVariable(name = "product-id") Long id) {
-        return productService.findById(id);
+    public ResponseEntity<Optional<Product>> findById(@PathVariable(name = "product-id") Long id) {
+        return ResponseEntity.ok(productService.findById(id));
     }
 
     @GetMapping("/find-by-name")
-    public Optional<Product> findByName(@RequestParam(value = "productName") String name) {
-        return productService.findByName(name);
+    public ResponseEntity<Optional<Product>> findByName(@RequestParam(value = "productName") String name) {
+        return ResponseEntity.ok(productService.findByName(name));
     }
 
     @GetMapping("/find-by-category")
